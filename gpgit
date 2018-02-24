@@ -140,23 +140,23 @@ use MIME::Parser;
      my $code;
      $mime->head->add('X-Gpgit-Executed', 'True' );
      if( $encrypt_mode eq 'pgpmime' ){
-        $code = $gpg->mime_encrypt( $mime, @recipients );
+        $code = $gpg->mime_signencrypt( $mime, @recipients );
      } elsif( $encrypt_mode eq 'prefer-inline' ){
         $mime->make_singlepart;
         $code = $mime->mime_type =~ /^text\/plain/
-              ? $gpg->ascii_encrypt( $mime, @recipients )
-              : $gpg->mime_encrypt(  $mime, @recipients );
+              ? $gpg->ascii_signencrypt( $mime, @recipients )
+              : $gpg->mime_signencrypt(  $mime, @recipients );
      } elsif( $encrypt_mode eq 'inline-or-plain' ){
         $mime->make_singlepart;
         if( $mime->mime_type =~ /^text\/plain/ ){
-	   $code = $gpg->ascii_encrypt( $mime, @recipients );
+	   $code = $gpg->ascii_signencrypt( $mime, @recipients );
 	} else {
 	   print $plain; exit 0;
 	}
      }
 
      if( $code ){
-        print $plain;
+	print $plain;
 	exit 0;
      }
   }

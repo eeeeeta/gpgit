@@ -49,11 +49,11 @@ if [ ! -d "$1" ]; then
 fi
 
 # Does this key exist?
-gpg --list-keys "$2" > /dev/null 2>&1
-if [ $? -gt 0 ]; then
-	echo "A GPG key for '$2' could not be found!"
-	exit 0
-fi
+#gpg --list-keys "$2" > /dev/null 2>&1
+#if [ $? -gt 0 ]; then
+#	echo "A GPG key for '$2' could not be found!"
+#	exit 0
+#fi
 
 rebuild_index=0
 
